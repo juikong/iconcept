@@ -68,4 +68,14 @@ class ProductController extends Controller
         Product::destroy($id);
         return response()->json(['message' => 'Deleted']);
     }
+
+    /**
+     * Search for a product by title.
+     */
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $products = Product::where('title', 'LIKE', "%{$query}%")->get();
+        return response()->json($products);
+    }
 }
